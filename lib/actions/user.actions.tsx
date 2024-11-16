@@ -1,7 +1,6 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-
 import { connectToDatabase } from '@/lib/database'
 import User from '../database/models/user.models'
 import Order from "../database/models/order.model"
@@ -16,6 +15,7 @@ export async function createUser(user: CreateUserParams) {
 
     const newUser = await User.create(user)
     return JSON.parse(JSON.stringify(newUser))
+    
   } catch (error) {
     handleError(error)
   }

@@ -57,25 +57,31 @@ export async function POST(req: Request) {
   if(eventType === 'user.created') {
     const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
     const user = {
-        clerkId: id,
-        email: email_addresses[0].email_address,
-        username: username!,
-        firstName: first_name!,
-        lastName: last_name!,
-        photo: image_url,
+      clerkId: id,
+      email: email_addresses?.[0]?.email_address || "no-email@example.com",
+      username: username || "no-username",
+      firstName: first_name || "NoFirstName",
+      lastName: last_name || "NoLastName",
+      photo: image_url || "default-photo-url",
     }
 
-    const newUser = await createUser(user);
-    if(newUser) {
-        await clerkClient.users.updateUserMetadata(id, {
-            publicMetadata: {
-                userId: newUser._id,
-            }
-        })
-    }
-
-    return NextResponse.json({ messsage: "OK", user: newUser});
+    try {
+      const newUser = await createUser(user);
+      if (newUser) {
+          await clerkClient.users.updateUserMetadata(id, {
+              publicMetadata: {
+                  userId: newUser._id,
+              }
+          });
+      }
+      return NextResponse.json({ message: "OK", user: newUser });
+  } catch (error) {
+      console.error("Error creating user:", error);
+      return new Response("Failed to create user", { status: 500 });
   }
+  }
+
+
 
   // UPDATING A USER
   if (eventType === 'user.updated') {
