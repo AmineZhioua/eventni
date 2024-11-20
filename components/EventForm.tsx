@@ -245,7 +245,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                                         control={form.control}
                                         name="isFree"
                                         render={({ field }) => (
-                                            <FormItem className="w-full absolute">
+                                            <FormItem className="absolute bg-white right-2">
                                                 <FormControl>
                                                     <div className="flex items-center flex-row-reverse">
                                                         <p className="mx-2">Free</p>
@@ -266,7 +266,38 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                     )}
                 />
 
-                <Button type="submit" className="w-full">Submit</Button>
+                {/* Event URL Input */}
+                <FormField
+                    control={form.control}
+                    name="url"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>URL</FormLabel>
+                            <FormControl>
+                                <div className="flex items-center relative">
+                                    <Image
+                                        src="/assets/icons/url.svg"
+                                        alt="location"
+                                        className="absolute left-[10px]"
+                                        width={24}
+                                        height={24}
+                                    />
+                                    <Input placeholder="Enter the url to your event" className="px-11" {...field} />
+                                </div>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <Button 
+                    type="submit" 
+                    className="w-full" 
+                    disabled={form.formState.isSubmitting}
+                >
+                    { form.formState.isSubmitting ? ( 
+                        "Submitting..." ) : `${type} Event` }
+                </Button>
             </form>
     </Form>
     );
