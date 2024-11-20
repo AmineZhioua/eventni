@@ -60,7 +60,7 @@ export async function POST(req: Request) {
       clerkId: id,
       email: email_addresses?.[0]?.email_address || "no-email@example.com",
       username: username || "no-username",
-      firstName: first_name || "NoFirstName",
+      firstName: first_name || "NoFirstName", 
       lastName: last_name || "NoLastName",
       photo: image_url || "default-photo-url",
     }
