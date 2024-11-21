@@ -6,7 +6,8 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 import { ICategory } from "@/lib/database/models/category.model"
-import { useState } from "react"
+import getAllCategories from "@/lib/actions/category.actions";
+import { useEffect, useState } from "react"
   
 
 type DropdownProps = {
@@ -15,8 +16,23 @@ type DropdownProps = {
 }
 
 const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
-    /* eslint-disable */
     const[category, setCategory] = useState<ICategory[]>([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const categories = await getAllCategories();
+                if (categories) {
+                    setCategory(categories as ICategory[]);
+                }
+            } catch (error) {
+                console.error("Failed to fetch categories:", error);
+            }
+        };
+    
+        fetchCategories();
+    }, []);
+    
 
     return (
         <Select onValueChange={onChangeHandler} defaultValue={value}>
