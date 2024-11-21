@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     MONGODB_URI: process.env.MONGODB_URI,
   },
+  images: {
+    domains: ['utfs.io'],
+    remotePatterns: [{
+      protocol: "https",
+      hostname: "utfs.io",
+      port: ""
+    }]
+  }
 };
 
 export default nextConfig;

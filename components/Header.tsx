@@ -31,7 +31,7 @@ const Header: React.FC = () => {
                             src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
                             className="h-8 w-auto"
                         />
-                        <span className="text-2xl font-medium">Eventi</span>
+                        <span className="text-2xl font-medium">EvenTNi</span>
                     </Link>
                 </div>
                 <div className="flex lg:hidden">

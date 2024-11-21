@@ -1,49 +1,29 @@
-'use client';
-import { useRouter } from "next/navigation";
 import Landing from "@/components/Landing";
 import Content from "@/components/Content";
-import EventCard from "@/components/EventCard";
+import { getAllEvents } from "@/lib/actions/event.actions";
 
-export default function HomePage() {
-  const router = useRouter();
+export default async function HomePage() {
+  const events = await getAllEvents({
+    query: '',
+    category: '',
+    page: 1,
+    limit: 6,
+  });
 
-  const handleCardClick = () => {
-    router.push('/details');
-  };
-
+  console.log(events);
   return (
     <main>
       <Landing />
-      <Content>
-        <EventCard 
-          imgName="dj-party.jpg" 
-          eventTitle="Tropical Party in Coco Beach" 
-          location="Carthage Beach" 
-          price="100TND" 
-          onClick={handleCardClick}
-        />
-        <EventCard 
-          imgName="react-training.png" 
-          eventTitle="Reactjs Training for students" 
-          location="ISET Nabeul" 
-          price="Free"
-          onClick={handleCardClick}
-        />
-        <EventCard 
-          imgName="bitcoin.jpg"
-          eventTitle="Learn more about Bitcoin!"
-          location="Centre Formation"
-          price="500TND"
-          onClick={handleCardClick}
-        />
-        <EventCard 
-          imgName="camping.png"
-          eventTitle="Camping in Fuji Mountain"
-          location="CampLife"
-          price="1000TND"
-          onClick={handleCardClick}
-        />
-      </Content>
+      <Content 
+        data={events?.data}
+        emptyTitle="No Events Found"
+        emptyStateSubtext="Come back later"
+        collectionType="All_Events"
+        limit={6}
+        page={1}
+        totalPages={2}
+      />
+
     </main>
   );
 }

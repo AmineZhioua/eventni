@@ -326,7 +326,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                     disabled={form.formState.isSubmitting}
                 >
                     { form.formState.isSubmitting ? ( 
-                        "Submitting..." ) : `${type} Event` }
+                        "Loading..." ) : `${type} Event` }
                 </Button>
             </form>
     </Form>

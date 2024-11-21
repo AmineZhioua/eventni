@@ -12,7 +12,7 @@ import { useEffect, useState } from "react"
 
 type DropdownProps = {
     value?: string,
-    onChangeHandler?: (value: string) => void
+    onChangeHandler?: (value: string) => void,
 }
 
 const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
