@@ -1,5 +1,5 @@
 import Landing from "@/components/Landing";
-import Content from "@/components/Content";
+import Content from "@/components/ContentClient";
 import { getAllEvents } from "@/lib/actions/event.actions";
 
 export default async function HomePage() {
@@ -10,7 +10,6 @@ export default async function HomePage() {
     limit: 6,
   });
 
-  console.log(events);
   return (
     <main>
       <Landing />

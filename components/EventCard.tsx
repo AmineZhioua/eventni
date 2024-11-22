@@ -1,30 +1,32 @@
 /* eslint-disable */
+'use client'
 import React from 'react';
 import Image from 'next/image'
-import { Button } from './ui/button';
 import { IEvent } from '@/lib/database/models/event.model';
 import { formatDateTime } from '@/lib/utils';
 import Link from 'next/link';
+import { getAuth } from '@clerk/nextjs/server';
 
 interface EventCardProps {
     event: IEvent,
     hasOrderLink?: boolean,
     hidePrice?: boolean,
+    isEventCreator?: boolean
 }
 
-const EventCard = ({ event, hasOrderLink, hidePrice }: EventCardProps) => {
+const EventCard = ({ event, hasOrderLink, hidePrice, isEventCreator }: EventCardProps) => {
     return (
-        <div className='card border rounded-md grid grid-rows-[1fr_auto_auto] cursor-pointer'>
+        <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
             <Link 
                 href={`/events/${event._id}`}
                 style={{backgroundImage: `url(${event.imageUrl})`}}
                 className="flex-center flex-grow bg-gray-50 bg-cover bg-center text-grey-500"
             />
-            {/* IS EVENT CREATOR ... */}
 
-            { !hidePrice && (
+            {/* IS EVENT CREATOR ... */}
+            {isEventCreator && !hidePrice && (
                 <div className="absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all">
-                <Link href={`/events/${event._id}/update`}>
+                <Link href={`/events/create/${event._id}/update`}>
                     <Image src="/assets/icons/edit.svg" alt="edit" width={20} height={20} />
                 </Link>
 
@@ -39,28 +41,46 @@ const EventCard = ({ event, hasOrderLink, hidePrice }: EventCardProps) => {
                 <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-60">
                     {event.isFree ? 'FREE' : `$${event.price}`}
                 </span>
-                <p className="p-semibold-14 w-min rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1">
+                <p className="p-semibold-14 w-min rounded-full bg-gray-100 px-4 py-1 text-grey-500 line-clamp-1">
                     {event.category.name}
                 </p>
                 </div>}
-
-                <p className="p-medium-16 p-medium-18 text-grey-500">
-                {formatDateTime(event.startDateTime).dateTime}
-                </p>
-
+                
                 <Link href={`/events/${event._id}`}>
-                <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">{event.title}</p>
+                    <p className="text-balance lg:text-md font-semibold tracking-tight text-gray-900 sm:text-base">
+                        {event.title}
+                    </p>
                 </Link>
 
+                <div className='flex items-center'>
+                    <Image
+                        src="/assets/icons/calendar.svg"
+                        alt="calendar"
+                        width={24}
+                        height={24}
+                    />
+                    <p className="ml-1 p-medium-16 p-medium-18 text-grey-500">
+                        {formatDateTime(event.startDateTime).dateTime}
+                    </p>
+                </div>
+
                 <div className="flex-between w-full">
-                <p className="p-medium-14 md:p-medium-16 text-grey-600">
-                    {event.organizer.firstName} {event.organizer.lastName}
-                </p>
+                    <div className='flex items-end'>
+                        <Image
+                            src="/assets/icons/user.svg"
+                            alt="user"
+                            width={25}
+                            height={25}
+                        />
+                        <p className="ml-1 p-medium-14 md:p-medium-16 text-grey-600">
+                            <u>{event.organizer.firstName} {event.organizer.lastName}</u>
+                        </p>
+                    </div>
 
                 {hasOrderLink && (
                     <Link href={`/orders?eventId=${event._id}`} className="flex gap-2">
-                    <p className="text-primary-500">Order Details</p>
-                    <Image src="/assets/icons/arrow.svg" alt="search" width={10} height={10} />
+                        <p className="text-primary-500">Order Details</p>
+                        <Image src="/assets/icons/arrow.svg" alt="search" width={10} height={10} />
                     </Link>
                 )}
                 </div>
