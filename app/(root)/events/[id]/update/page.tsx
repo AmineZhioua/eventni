@@ -1,9 +1,17 @@
 import EventForm from "@/components/EventForm";
+import { getEventById } from "@/lib/actions/event.actions";
 import { auth } from "@clerk/nextjs/server";
 
+type UpdateEventProps = {
+    params: {
+        id: string,
+    }
+}
 
 
-const EventUpdate = async() => {
+const EventUpdate = async({params: {id}}: UpdateEventProps) => {
+
+    const event = await getEventById(id);
     /* eslint-disable */
     const { sessionClaims } = await auth();
     const userId = sessionClaims?.userId as string;
@@ -26,7 +34,12 @@ const EventUpdate = async() => {
                 <p className="mt-2 text-lg/8 text-gray-600">It needs some changes ? No problem!</p>
             </div>
             <div className="mx-auto mt-16 max-w-xl sm:mt-20">
-                <EventForm userId={ userId } type="Update" />
+                <EventForm 
+                    userId={ userId } 
+                    event={event} 
+                    eventId={event._id} 
+                    type="Update" 
+                />
             </div>
         </section>
     );

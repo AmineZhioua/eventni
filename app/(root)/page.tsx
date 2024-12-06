@@ -1,5 +1,5 @@
 import Landing from "@/components/Landing";
-import Content from "@/components/ContentClient";
+import Content from "@/components/Content";
 import { getAllEvents } from "@/lib/actions/event.actions";
 
 export default async function HomePage() {
@@ -16,13 +16,12 @@ export default async function HomePage() {
       <Content 
         data={events?.data}
         emptyTitle="No Events Found"
-        emptyStateSubtext="Come back later"
+        emptyStateText="Come Back Later"
         collectionType="All_Events"
         limit={6}
         page={1}
         totalPages={2}
       />
-
     </main>
   );
 }
