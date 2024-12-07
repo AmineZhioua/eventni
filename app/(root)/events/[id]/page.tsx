@@ -5,10 +5,8 @@ import Image from "next/image";
 import React from 'react';
 import { formatDateTime } from '@/lib/utils';
 
-/* eslint-disable */
-const EventDetails = async({ params, searchParams }: SearchParamProps) => {
+const EventDetails = async({ params: { id } }: SearchParamProps) => {
 
-    const { id } = params;
     const event = await getEventById(id);
 
     return (
