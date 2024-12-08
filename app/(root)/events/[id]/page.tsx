@@ -1,10 +1,10 @@
 import { getEventById, getRelatedEventsByCategory } from '@/lib/actions/event.actions';
-import { Button } from '@/components/ui/button';
 import { SearchParamProps } from '@/types';
 import Image from "next/image";
 import React from 'react';
 import { formatDateTime } from '@/lib/utils';
 import RelatedEventsContent from '@/components/RelatedEventsContent';
+import CheckoutButton from '@/components/CheckoutButton';
 
 const EventDetails = async({ params: { id }, searchParams }: SearchParamProps) => {
 
@@ -116,11 +116,8 @@ const EventDetails = async({ params: { id }, searchParams }: SearchParamProps) =
                                 </div>
                             </div>
 
-                            <Button
-                                className="mt-0 flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-700 focus:ring-offset-2"
-                            >
-                                <i className="fa-solid fa-plus"></i> Join Now
-                            </Button>
+                            {/* Checkout Button */}
+                            <CheckoutButton event={event} />
                         </div>
                     </div>
                 </div>

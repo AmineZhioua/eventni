@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Button } from './ui/button';
 import Link from 'next/link';
 
 interface NavigationItem {
@@ -15,7 +16,6 @@ const navigation: NavigationItem[] = [
     { name: 'Profile', href: '/profile' },
     { name: 'Create Event', href: '/events/create' },
     { name: 'Contact us', href: '/contact' },
-    { name: 'About', href: '/about' },
 ];
 
 const Header: React.FC = () => {
@@ -51,9 +51,14 @@ const Header: React.FC = () => {
                         </Link>
                     ))}
                 </div>
+                {/* Clerk Authentication Buttons */}
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                     <SignedOut>
-                        <SignInButton />
+                        <Button asChild>
+                            <a href="/sign-in">
+                                Sign In
+                            </a>
+                        </Button>
                     </SignedOut>
                     <SignedIn>
                         <UserButton />

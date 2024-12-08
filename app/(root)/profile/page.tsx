@@ -34,7 +34,7 @@ const ProfilePage = async() => {
                     <section className='wrapper flex items-center justify-center sm:justify-between'>
                         <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl sm:text-center'>My Tickets</h1>
                         <Button asChild size="lg" className='hidden sm:flex'>
-                            <Link href='/#events'>
+                            <Link href={'/'}>
                                 Explore more events
                             </Link>
                         </Button>
@@ -56,7 +56,7 @@ const ProfilePage = async() => {
                     <section className='wrapper my-5 flex items-center justify-center sm:justify-between'>
                         <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl'>Events Organized</h1>
                         <Button asChild size="lg" className='hidden sm:flex'>
-                            <Link href='/events/create'>
+                            <Link href={'/events/create'}>
                                 Explore more events
                             </Link>
                         </Button>
