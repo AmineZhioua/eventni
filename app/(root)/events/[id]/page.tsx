@@ -1,5 +1,4 @@
 import { getEventById, getRelatedEventsByCategory } from '@/lib/actions/event.actions';
-import { SearchParamProps } from '@/types';
 import Image from "next/image";
 import React from 'react';
 import { formatDateTime } from '@/lib/utils';
