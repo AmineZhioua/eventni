@@ -15,9 +15,9 @@ interface EventCardProps {
 async function EventCard({ event, hasOrderLink, hidePrice }: EventCardProps) {
 
     const { sessionClaims } = await auth();
-        const userId = sessionClaims?.userId as string;
+    const userId = sessionClaims?.userId as string;
 
-        const isEventCreator = userId === event.organizer._id.toString();
+    const isEventCreator = userId === event.organizer._id.toString();
 
     return (
         <div className='group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]'>
@@ -38,8 +38,7 @@ async function EventCard({ event, hasOrderLink, hidePrice }: EventCardProps) {
                     </div>
                 )
             }
-            <Link 
-                href={`/events/${event._id}`}
+            <div 
                 className='flex min-h-[230px] flex-col gap-3 p-5 md:gap-4'
             >
                 { !hidePrice && 
@@ -52,24 +51,37 @@ async function EventCard({ event, hasOrderLink, hidePrice }: EventCardProps) {
                         </p>
                     </div>
                 }
-                <p className='p-medium-16 p-mdeium-18 text-grey-500'>
-                    {formatDateTime(event.startDateTime).dateTime}
-                </p>
-                <p className='p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black'>
-                    {event.title}
-                </p>
-                <div className='flex-between w-full'>
-                    <p className='p-medium-14 md:p-medium-16 text-gray-600'>
-                        {event.organizer.firstName} {event.organizer.lastName}
+                <div className='flex items-center'>
+                    <Image src="/assets/icons/calendar.svg" alt='calendar' width={22} height={22} className='mr-1' />
+                    <p className='p-medium-16 p-mdeium-18 text-grey-500'>
+                        {formatDateTime(event.startDateTime).dateTime}
                     </p>
+                </div>
+                
+
+                <Link 
+                    href={`/events/${event._id}`}
+                >
+                    <p className='p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-balance font-semibold tracking-tight text-gray-900 sm:text-md'>
+                        {event.title}
+                    </p>
+                </Link>
+                
+                <div className='flex flex-col justify-between w-full mt-5'>
+                    <div className='flex items-center'>
+                        <Image src="/assets/icons/user.svg" alt='user' width={22} height={22} />
+                        <p className='p-medium-14 md:p-medium-16'>
+                            {event.organizer.firstName} {event.organizer.lastName}
+                        </p>
+                    </div>
                     { hasOrderLink && (
                         <Link href={`/orders?eventId=${event._id}`} className='flex gap-2'>
-                            <p className='text-primary-500'>Order Details</p>
-                            <Image src="/assets/icons/arrow.svg" alt='' width={10} height={10} />
+                            <p className='text-primary-500 text-gray-600'><u>Order Details</u></p>
+                            <Image src="/assets/icons/north_arrow.svg" alt='' width={12} height={12} />
                         </Link>
                     )}
                 </div>
-            </Link>
+            </div>
         </div>
     );
 };

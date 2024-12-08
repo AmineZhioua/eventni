@@ -13,7 +13,7 @@ interface NavigationItem {
 
 const navigation: NavigationItem[] = [
     { name: 'Profile', href: '/profile' },
-    { name: 'Your Events', href: '/your-events' },
+    { name: 'Create Event', href: '/events/create' },
     { name: 'Contact us', href: '/contact' },
     { name: 'About', href: '/about' },
 ];
