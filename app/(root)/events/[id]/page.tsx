@@ -6,9 +6,15 @@ import { formatDateTime } from '@/lib/utils';
 import RelatedEventsContent from '@/components/RelatedEventsContent';
 import CheckoutButton from '@/components/CheckoutButton';
 
-const EventDetails = async({ params: { id }, searchParams }: SearchParamProps) => {
+const EventDetails = async({
+    params,
+    searchParams,
+  }: {
+    params: { id: string };
+    searchParams: { [key: string]: string | string[] | undefined };
+  }) => {
 
-    const event = await getEventById(id);
+    const event = await getEventById(params.id);
 
     const relatedEvents = await getRelatedEventsByCategory({
         categoryId: event.category._id,
