@@ -55,9 +55,9 @@ const Header: React.FC = () => {
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                     <SignedOut>
                         <Button asChild>
-                            <a href="/sign-in">
+                            <Link href="/sign-in">
                                 Sign In
-                            </a>
+                            </Link>
                         </Button>
                     </SignedOut>
                     <SignedIn>
