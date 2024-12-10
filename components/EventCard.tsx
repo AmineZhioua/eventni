@@ -75,7 +75,7 @@ async function EventCard({ event, hasOrderLink, hidePrice }: EventCardProps) {
                         </p>
                     </div>
                     { hasOrderLink && (
-                        <Link href={`/orders?eventId=${event._id}`} className='flex gap-2'>
+                        <Link href={`/events/orders?eventId=${event._id}`} className='flex gap-2'>
                             <p className='text-primary-500 text-gray-600'><u>Order Details</u></p>
                             <Image src="/assets/icons/north_arrow.svg" alt='' width={12} height={12} />
                         </Link>

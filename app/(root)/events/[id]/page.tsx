@@ -139,8 +139,8 @@ const EventDetails = async({
                 </h1>
                 <RelatedEventsContent 
                     data={relatedEvents?.data}
-                    emptyTitle="No Events Found"
-                    emptyStateText="Come Back Later"
+                    emptyTitle="No Related Events Found"
+                    emptyStateText="Explore Different Events in The Home Page"
                     collectionType="All_Events"
                     limit={6}
                     page={1}

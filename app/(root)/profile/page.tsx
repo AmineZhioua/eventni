@@ -1,19 +1,39 @@
 import RelatedEventsContent from '@/components/RelatedEventsContent';
 import { Button } from '@/components/ui/button';
 import { getEventsByUser } from '@/lib/actions/event.actions';
+import { getOrdersByUser } from '@/lib/actions/orders.actions';
+import { IOrder } from '@/lib/database/models/order.model';
 import { auth } from '@clerk/nextjs/server';
 import { Link } from 'lucide-react';
 import React from 'react'
 
 
+const ProfilePage = async({
+    searchParams  
+    } :
+    {
+        searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+    }) => {
 
-const ProfilePage = async() => {
     const { sessionClaims } = await auth();
     const userId = sessionClaims?.userId as string;
 
+    // Pagination Params
+    const resolvedSearchParams = await searchParams;
+    const ordersPage = Number(resolvedSearchParams?.ordersPage) || 1;
+    const eventsPage = Number(resolvedSearchParams?.eventsPage) || 1;
+
+    const orders = await getOrdersByUser({
+        userId,
+        page: ordersPage
+    });
+
+    const orderedEvents = await orders?.data.map((order: IOrder) => order.event || []);
+    
     const organizedEvents = await getEventsByUser({ 
         userId, 
-        page: 1 });   
+        page: eventsPage
+    });
     
     return (
         <div className="relative isolate px-6 pt-1 lg:px-8">
@@ -39,18 +59,18 @@ const ProfilePage = async() => {
                             </Link>
                         </Button>
                     </section>
-                    {/* <section className='wrapper flex items-center justify-center sm:justify-between'>
+                    <section className='wrapper flex items-center justify-center sm:justify-between'>
                         <RelatedEventsContent
-                            data={organizedEvents?.data}
+                            data={orderedEvents}
                             collectionType='My_Tickets'
                             emptyTitle='No Tickets'
                             emptyStateText='You can explore more events and get your tickets!'
                             limit={3}
                             urlParamName='ordersPage'
-                            page={1}
-                            totalPages={2}
+                            page={ordersPage}
+                            totalPages={orders?.totalPages}
                         />
-                    </section> */}
+                    </section>
 
                     {/* Events Organized Section */}
                     <section className='wrapper my-5 flex items-center justify-center sm:justify-between'>
@@ -69,8 +89,8 @@ const ProfilePage = async() => {
                             emptyStateText='Create some events and share them with the world!'
                             limit={6}
                             urlParamName='eventsPage'
-                            page={1}
-                            totalPages={2}
+                            page={eventsPage}
+                            totalPages={organizedEvents?.totalPages}
                         />
                     </section>
                 </div>
