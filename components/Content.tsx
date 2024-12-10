@@ -2,6 +2,7 @@
 import { IEvent } from "@/lib/database/models/event.model";
 import Dropdown from "./shared/Dropdown";
 import EventCard from "./EventCard";
+import SearchInput from "./SearchInput";
 
 
 interface ContentProps {
@@ -32,7 +33,7 @@ async function Content({
             <div className="search-bar flex items-center justify-start my-10">
                 <div className="search">
                     <i className="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" name="search-bar" placeholder="Search for an event" />
+                    <SearchInput placeholder="Search for an event" />
                 </div>
                 <div className='sort'>
                     <Dropdown />
