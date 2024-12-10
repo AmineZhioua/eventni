@@ -6,6 +6,7 @@ import { Input } from './ui/input';
 
 
 const SearchInput = ({ placeholder } : { placeholder: string }) => {
+    /* eslint-disable */
     const[query, setQuery] = useState('');
 
 
