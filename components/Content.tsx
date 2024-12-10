@@ -3,6 +3,7 @@ import { IEvent } from "@/lib/database/models/event.model";
 import Dropdown from "./shared/Dropdown";
 import EventCard from "./EventCard";
 import SearchInput from "./SearchInput";
+import { Suspense } from "react";
 
 
 interface ContentProps {
@@ -32,8 +33,9 @@ async function Content({
             <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-3xl'>Discover<br></br> Some Events For You</h1>
             <div className="search-bar flex items-center justify-start my-10">
                 <div className="search">
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                    <SearchInput placeholder="Search for an event" />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <SearchInput placeholder="Search buyer name..." />
+                    </Suspense>
                 </div>
                 <div className='sort'>
                     <Dropdown />

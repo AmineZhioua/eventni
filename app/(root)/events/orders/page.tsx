@@ -2,7 +2,7 @@ import SearchInput from '@/components/SearchInput';
 import { getOrdersByEvent } from '@/lib/actions/orders.actions';
 import { IOrderItem } from '@/lib/database/models/order.model';
 import { formatDateTime, formatPrice } from '@/lib/utils';
-import React from 'react'
+import React, { Suspense } from 'react'
 
 
 
@@ -29,7 +29,9 @@ const OrdersPage = async({
             </section>
 
             <section className="wrapper mt-8">
-                <SearchInput placeholder="Search buyer name..." />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <SearchInput placeholder="Search buyer name..." />
+                </Suspense>
             </section>
 
             <section className="wrapper overflow-x-scroll">
