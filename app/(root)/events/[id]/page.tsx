@@ -142,9 +142,9 @@ const EventDetails = async({
                     emptyTitle="No Related Events Found"
                     emptyStateText="Explore Different Events in The Home Page"
                     collectionType="All_Events"
-                    limit={6}
-                    page={1}
-                    totalPages={2}
+                    limit={3}
+                    page={searchParamsResolved.page as string}
+                    totalPages={relatedEvents?.totalPages}
                 />
             </section>
         </>

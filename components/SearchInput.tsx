@@ -9,7 +9,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 
 
 const SearchInput = ({ placeholder } : { placeholder: string }) => {
-    const[query, setQuery] = useState('');
+    const [query, setQuery] = useState('');
     const router = useRouter();
     const searchParams = useSearchParams();
 

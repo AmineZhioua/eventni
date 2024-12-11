@@ -1,20 +1,20 @@
-'user server'
+'use server';
 import { IEvent } from "@/lib/database/models/event.model";
-import Dropdown from "./shared/Dropdown";
 import EventCard from "./EventCard";
 import SearchInput from "./SearchInput";
 import { Suspense } from "react";
-
+import CategoryFilter from "./CategoryFilter";
+import Pagination from "./Pagination";
 
 interface ContentProps {
-    data: IEvent[],
-    emptyTitle: string,
-    emptyStateText: string,
-    limit: number,
-    page: number | string,
-    urlParamName?: string,
-    totalPages?: number,
-    collectionType?: 'Events_Organized' | 'My_Tickets' | 'All_Events'
+    data: IEvent[];
+    emptyTitle: string;
+    emptyStateText: string;
+    limit: number;
+    page: number | string;
+    urlParamName?: string;
+    totalPages?: number;
+    collectionType?: 'Events_Organized' | 'My_Tickets' | 'All_Events';
 }
 
 /* eslint-disable */
@@ -26,19 +26,21 @@ async function Content({
     limit,
     page,
     totalPages = 0,
-    urlParamName }: ContentProps) {
-
+    urlParamName 
+}: ContentProps) {
     return (
         <div className='content' id='Content'>
-            <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-3xl'>Discover<br></br> Some Events For You</h1>
-            <div className="search-bar flex items-center justify-start my-10">
+            <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-3xl'>
+                Discover<br /> Some Events For You
+            </h1>
+            <div className="search-bar flex items-center flex-wrap justify-start my-10">
                 <div className="search">
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense>
                         <SearchInput placeholder="Search buyer name..." />
                     </Suspense>
                 </div>
                 <div className='sort'>
-                    <Dropdown />
+                    <CategoryFilter />
                 </div>
             </div>
             {/* Cards Section */}
@@ -59,15 +61,28 @@ async function Content({
                                                 hidePrice={hidePrice}
                                             />
                                         </li>
-                                    )
+                                    );
                                 })
                             }
                         </ul>
                     ) : (
                         <div className="flex py-5 justify-center items-center flex-col">
-                            <h1 className="text-balance font-semibold tracking-tight text-gray-900 sm:text-3xl">{emptyTitle}</h1>
-                            <h3 className="text-balance font-semibold tracking-tight text-gray-900 sm:text-xl">{emptyStateText}</h3>
+                            <h1 className="text-balance font-semibold tracking-tight text-gray-900 sm:text-3xl">
+                                {emptyTitle}
+                            </h1>
+                            <h3 className="text-balance font-semibold tracking-tight text-gray-900 sm:text-xl">
+                                {emptyStateText}
+                            </h3>
                         </div>
+                    )
+                }
+                {
+                    totalPages > 1 && (
+                        <Pagination
+                            totalPages={totalPages}
+                            page={page}
+                            urlParamName={urlParamName}
+                        />
                     )
                 }
             </div>
