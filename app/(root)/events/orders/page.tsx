@@ -33,9 +33,9 @@ const OrdersPage = async({
     });
 
     return (
-        <>
+        <div className='flex flex-col flex-1'>
             <section className='wrapper pt-24 sm:pt-24 lg:pt-24'>
-            <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl sm:text-center'>Orders</h1>
+                <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl sm:text-center'>Orders</h1>
             </section>
 
             <section className="wrapper mt-8">
@@ -127,7 +127,7 @@ const OrdersPage = async({
                     </TableBody>
                 </Table>
             </section>
-        </>
+        </div>
     );
 }
 

@@ -50,7 +50,7 @@ const ProfilePage = async({
                     />
                 </div>
                 <div className="mx-auto py-24 sm:py-24 lg:py-24">
-                    {/* My Tickets Section */}
+                    {/* Events Joined Section */}
                     <section className='wrapper mb-5 flex items-center justify-center sm:justify-between'>
                         <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl sm:text-center'>
                             Events You Joined
