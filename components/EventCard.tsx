@@ -33,17 +33,15 @@ async function EventCard({ event, hasOrderLink, hidePrice }: EventCardProps) {
                         <Link href={`/events/${event._id}/update`}>
                             <Image src={"/assets/icons/edit.svg"} alt='edit' width={20} height={20} />
                         </Link>
-
                         <Delete eventId={event._id} />
                     </div>
                 )
             }
-            <div 
-                className='flex min-h-[230px] flex-col gap-3 p-5 md:gap-4'
-            >
+            <div className='flex min-h-[230px] flex-col gap-3 p-5 md:gap-4'>
+                
                 { !hidePrice && 
                     <div className='flex gap-2'>
-                        <span className='p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-60'>
+                        <span className='p-semibold-14 w-min rounded-full bg-black text-white px-4 py-1 text-green-60'>
                             {event.isFree ? 'Free' : `${event.price}TND`}
                         </span>
                         <p className='p-semibold-14 w-min rounded-full bg-gray-500/10 px-4 py-1 text-gray-500'>
@@ -67,16 +65,16 @@ async function EventCard({ event, hasOrderLink, hidePrice }: EventCardProps) {
                     </p>
                 </Link>
                 
-                <div className='flex flex-col justify-between w-full mt-5'>
+                <div className='flex justify-between w-full pt-4 border-t'>
                     <div className='flex items-center'>
-                        <Image src="/assets/icons/user.svg" alt='user' width={22} height={22} />
+                        <Image src="/assets/icons/user.svg" alt='user' className='mr-1' width={24} height={24} />
                         <p className='p-medium-14 md:p-medium-16'>
-                            {event.organizer.firstName} {event.organizer.lastName}
+                            {event.organizer.firstName}
                         </p>
                     </div>
                     { hasOrderLink && (
                         <Link href={`/events/orders?eventId=${event._id}`} className='flex gap-2'>
-                            <p className='text-primary-500 text-gray-600'><u>Order Details</u></p>
+                            <p className='text-primary-500 text-sm text-gray-600'><u>Order List</u></p>
                             <Image src="/assets/icons/north_arrow.svg" alt='' width={12} height={12} />
                         </Link>
                     )}

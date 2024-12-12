@@ -1,5 +1,7 @@
 /* eslint-disable */
 import React from 'react';
+import { Button } from './ui/button';
+import Link from 'next/link';
 
 const Landing: React.FC = () => {
     return (
@@ -25,12 +27,12 @@ const Landing: React.FC = () => {
                         Create & host your events on our platform for free!
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
-                        <a
-                            href="#Content"
-                            className="rounded-md bg-violet-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-violet-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                            Find Events
-                        </a>
+                        <Button asChild>
+                            <Link href={'#Content'}>
+                                Find Events
+                            </Link>
+                        </Button>
+                        
                     </div>
                 </div>
             </div>

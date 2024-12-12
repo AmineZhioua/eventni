@@ -76,7 +76,7 @@ const ProfilePage = async({
 
                     {/* Events Organized Section */}
                     <section className='wrapper my-5 flex items-center justify-center sm:justify-between'>
-                        <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl'>Events Organized</h1>
+                        <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl'>Events You Created</h1>
                         <Button asChild size="lg" className='hidden sm:flex'>
                             <Link href={'/events/create'}>
                                 Create an Event
