@@ -1,11 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { Input } from './ui/input';
 import { formUrlQuery, removeKeysFromQuery } from '@/lib/utils';
 import { useSearchParams, useRouter } from 'next/navigation';
-// import { useRouter } from 'next/compat/router';
-
 
 
 const SearchInput = ({ placeholder } : { placeholder: string }) => {
@@ -37,7 +35,7 @@ const SearchInput = ({ placeholder } : { placeholder: string }) => {
 
     return (
         <div className="flex min-h-[54px] w-full overflow-hidden rounded-ful px-4 py-2" >
-            <Image src="/assets/icons/search.svg" alt='search' width={20} height={20} />
+            {/* <Image src="/assets/icons/search.svg" alt='search' width={20} height={20} /> */}
             <Input 
                 type='text' 
                 placeholder={placeholder} 

@@ -4,7 +4,7 @@ import { getEventsByUser } from '@/lib/actions/event.actions';
 import { getOrdersByUser } from '@/lib/actions/orders.actions';
 import { IOrder } from '@/lib/database/models/order.model';
 import { auth } from '@clerk/nextjs/server';
-import { Link } from 'lucide-react';
+import Link from 'next/link';
 import React from 'react'
 
 
@@ -51,10 +51,12 @@ const ProfilePage = async({
                 </div>
                 <div className="mx-auto py-24 sm:py-24 lg:py-24">
                     {/* My Tickets Section */}
-                    <section className='wrapper flex items-center justify-center sm:justify-between'>
-                        <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl sm:text-center'>My Tickets</h1>
-                        <Button asChild size="lg" className='hidden sm:flex'>
-                            <Link href={'/'}>
+                    <section className='wrapper mb-5 flex items-center justify-center sm:justify-between'>
+                        <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl sm:text-center'>
+                            Events You Joined
+                        </h1>
+                        <Button asChild className='hidden sm:flex'>
+                            <Link href={'/'} className='text-white'>
                                 Explore more events
                             </Link>
                         </Button>
@@ -77,7 +79,7 @@ const ProfilePage = async({
                         <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl'>Events Organized</h1>
                         <Button asChild size="lg" className='hidden sm:flex'>
                             <Link href={'/events/create'}>
-                                Explore more events
+                                Create an Event
                             </Link>
                         </Button>
                     </section>
