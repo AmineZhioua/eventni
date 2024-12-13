@@ -49,7 +49,7 @@ $ cd event-management-app
 $ npm install
 ```
 
-4. Configure environment variables in `
+4. Configure environment variables in ````bash
 NEXT_PUBLIC_SERVER_URL=
 
 #CLERK
@@ -72,7 +72,7 @@ UPLOADTHING_APP_ID=
 #STRIPE
 STRIPE_SECRET_KEY=
 STRIPE_WEBHOOK_SECRET=
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY```
 
 5. Start the development server:
 
