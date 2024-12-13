@@ -49,8 +49,8 @@ $ cd event-management-app
 $ npm install
 ```
 
-4. Configure environment variables in ````bash
-NEXT_PUBLIC_SERVER_URL=
+4. Configure environment variables in ```bash
+$ NEXT_PUBLIC_SERVER_URL=
 
 #CLERK
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
