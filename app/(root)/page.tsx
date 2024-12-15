@@ -3,12 +3,13 @@ import Content from "@/components/Content";
 import { getAllEvents } from "@/lib/actions/event.actions";
 
 export default async function HomePage({ 
-  searchParams 
-  } : { 
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }> 
+    searchParams 
+  }: { 
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
   }) {
-
+  
   const resolvedSearchParams = await searchParams;
+    
   const searchText = (resolvedSearchParams?.query as string) || '';
   const category = (resolvedSearchParams?.category as string) || '';
   const pageParam = Number(resolvedSearchParams?.page) || 1;
@@ -21,7 +22,7 @@ export default async function HomePage({
   });
 
   return (
-    <main>
+    <div className="container mx-auto px-4 py-8 space-y-12">
       <Landing />
       <Content 
         data={events?.data}
@@ -29,9 +30,10 @@ export default async function HomePage({
         emptyStateText="Come Back Later"
         collectionType="All_Events"
         limit={6}
-        page={1}
+        page={pageParam}
         totalPages={events?.totalPages}
       />
-    </main>
+    </div>
   );
 }
+

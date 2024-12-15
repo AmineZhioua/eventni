@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react'
 import { Button } from './ui/button';
 import { formUrlQuery } from '@/lib/utils';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type PaginationProps = {
     page: number | string;
@@ -10,9 +11,7 @@ type PaginationProps = {
     urlParamName?: string;
 }
 
-
 const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
-
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -27,20 +26,33 @@ const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
 
         router.push(newUrl, { scroll: false });
     }
+
     return (
-        <div className='flex justify-center items-center mt-8'>
-            <Button variant='outline' onClick={() => onClick('prev')} disabled={Number(page) <= 1} className='mr-4'>
-                Prev
+        <div className='flex justify-center items-center mt-8 space-x-2'>
+            <Button 
+                variant='outline' 
+                onClick={() => onClick('prev')} 
+                disabled={Number(page) <= 1}
+                className='flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500'
+            >
+                <ChevronLeft className="h-4 w-4" />
+                <span>Prev</span>
             </Button>
-            <p>{page}</p>
-            <Button variant='outline' onClick={() => onClick('next')} disabled={Number(page) == totalPages} className='ml-4'>
-                Next
+            <span className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md">
+                {page} of {totalPages}
+            </span>
+            <Button 
+                variant='outline' 
+                onClick={() => onClick('next')} 
+                disabled={Number(page) >= totalPages}
+                className='flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500'
+            >
+                <span>Next</span>
+                <ChevronRight className="h-4 w-4" />
             </Button>
         </div>
     );
 }
 
-
-
-
 export default Pagination;
+

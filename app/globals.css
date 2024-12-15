@@ -96,26 +96,6 @@ ul {
   list-style: none;
 }
 
-/* Small Screen */
-@media (min-width: 768px) {
-  .container {
-      width: 750px;
-  }
-}
-/* Medium Screen */
-@media (min-width: 992px) {
-  .container {
-      width: 970px;
-  }
-}
-/* Large Screen */
-@media (min-width: 1200px) {
-  .container {
-      width: 1170px;
-  }
-}
-
-/* ScrollBar Styling */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -127,26 +107,7 @@ ul {
 ::-webkit-scrollbar-thumb {
   background: rgb(124 58 237);
 }
-/* End Global Rules */
 
-
-
-
-.app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-.content {
-  padding: 40px;
-  border-top: 1px solid #c4c4c4;
-}
-
-
-.header {
-  border-bottom: 1px solid #eee;
-}
 
 .content .search {
   display: flex;
@@ -158,45 +119,8 @@ ul {
 
 .content .search input {
   width: 100%;
-  padding: 10px 10px 10px 50px;
-  border: 1px solid grey;
+  padding: 10px 10px 10px 10px;
+  border: 1px solid #ddd;
   background-color: transparent;
   border-radius: 10px;
 }
-
-.content .search i {
-  position: absolute;
-  left: 20px;
-  color: black;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Start Card Styling */
-.content .cards .card .event-img .pricing {
-  position: absolute;
-  display: flex;
-  top: 10px;
-  left: 10px;
-  background-color: #171717;
-  padding: 3px 10px;
-  border-radius: 5px;
-  color: white;
-  font-size: 15px;
-  box-shadow: 0px 0px 7px 2px #00000042;
-}
-
-.content .cards .card:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 0px 0px 7px 2px #00000042;
-}
-
-
-
-/* #################### Start Footer Styling #################### */
-.footer {
-  padding: 20px;
-  margin-top: 40px;
-  border-top: 1px solid #c4c4c4;
-}
-/* #################### End Footer Styling #################### */

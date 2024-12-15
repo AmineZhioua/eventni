@@ -12,9 +12,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-  
-
-
+import { FileText, Loader2 } from 'lucide-react';
 
 const OrdersPage = async({
     searchParams
@@ -33,105 +31,71 @@ const OrdersPage = async({
     });
 
     return (
-        <div className='flex flex-col flex-1'>
-            <section className='wrapper pt-24 sm:pt-24 lg:pt-24'>
-                <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-xl sm:text-center'>Orders</h1>
-            </section>
+        <div className="bg-gradient-to-br mt-10 from-purple-50 via-white to-blue-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+                <section className="text-center mb-12">
+                    <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+                        Event Orders
+                    </h1>
+                    <p className="text-xl text-gray-600">
+                        Manage and track all orders for your event
+                    </p>
+                </section>
 
-            <section className="wrapper mt-8">
-                <Suspense fallback={<div>Loading...</div>}>
-                    <SearchInput placeholder="Search buyer name..." />
-                </Suspense>
-            </section>
+                <section className="mb-8">
+                    <Suspense fallback={
+                        <div className="flex items-center justify-center">
+                            <Loader2 className="h-6 w-6 animate-spin text-purple-600" />
+                            <span className="ml-2 text-gray-600">Loading search...</span>
+                        </div>
+                    }>
+                        <SearchInput placeholder="Search buyer name..." />
+                    </Suspense>
+                </section>
 
-            <section className="wrapper px-5">
-                {/* <table className="w-full border-collapse border-t overflow-x-scroll">
-                <thead>
-                    <tr className="p-medium-14 border-b text-grey-500">
-                    <th className="min-w-[250px] py-3 text-left">Order ID</th>
-                    <th className="min-w-[200px] flex-1 py-3 pr-4 text-left">Event Title</th>
-                    <th className="min-w-[150px] py-3 text-left">Buyer</th>
-                    <th className="min-w-[100px] py-3 text-left">Created</th>
-                    <th className="min-w-[100px] py-3 text-right">Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {orders && orders.length === 0 ? (
-                    <tr className="border-b">
-                        <td colSpan={5} className="py-4 text-center text-gray-500">
-                        No orders found.
-                        </td>
-                    </tr>
-                    ) : (
-                    <>
-                        {orders &&
-                        orders.map((row: IOrderItem) => (
-                            <tr
-                            key={row._id}
-                            className="p-regular-14 lg:p-regular-16 border-b "
-                            style={{ boxSizing: 'border-box' }}>
-                            <td className="min-w-[250px] py-4 text-primary-500">{row._id}</td>
-                            <td className="min-w-[200px] flex-1 py-4 pr-4">{row.eventTitle}</td>
-                            <td className="min-w-[150px] py-4">{row.buyer}</td>
-                            <td className="min-w-[100px] py-4">
-                                {formatDateTime(row.createdAt).dateTime}
-                            </td>
-                            <td className="min-w-[100px] py-4 text-right">
-                                {formatPrice(row.totalAmount)}
-                            </td>
-                            </tr>
-                        ))}
-                    </>
-                    )}
-                </tbody>
-                </table> */}
-
-                <Table className='overflow-x-scroll mt-5 border rounded-md'>
-                    <TableCaption className='text-black'>A list of your recent orders.</TableCaption>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="w-[100px] text-black font-semibold">Order ID</TableHead>
-                            <TableHead className='text-black font-semibold'>Event Title</TableHead>
-                            <TableHead className='text-black font-semibold'>Buyer</TableHead>
-                            <TableHead className="text-left text-black font-semibold">Created</TableHead>
-                            <TableHead className="text-left text-black font-semibold">Amount</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {orders && orders.length === 0 ? (
+                <section className="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <Table>
+                        <TableCaption>A list of your recent orders.</TableCaption>
+                        <TableHeader>
                             <TableRow>
-                                <TableCell colSpan={5} className="py-4 text-center text-black">
-                                    No orders found.
-                                </TableCell>
+                                <TableHead className="w-[100px] font-semibold">Order ID</TableHead>
+                                <TableHead className="font-semibold">Event Title</TableHead>
+                                <TableHead className="font-semibold">Buyer</TableHead>
+                                <TableHead className="font-semibold">Created</TableHead>
+                                <TableHead className="text-right font-semibold">Amount</TableHead>
                             </TableRow>
-                        ) : (
-                            <>
-                                {orders &&
-                                    orders.map((row: IOrderItem) => (
-                                        <TableRow key={row._id}>
-                                            <TableCell>{row._id}</TableCell>
-                                            <TableCell>{row.eventTitle}</TableCell>
-                                            <TableCell>{row.buyer}</TableCell>
-                                            <TableCell>{formatDateTime(row.createdAt).dateTime}</TableCell>
-                                            <TableCell className="text-left">{formatPrice(row.totalAmount)}</TableCell>
-                                        </TableRow>
-                                    ))}
-                            </>
-                        )}
-                        {/* <TableRow>
-                            <TableCell className="font-medium">INV001</TableCell>
-                            <TableCell>Paid</TableCell>
-                            <TableCell>Credit Card</TableCell>
-                            <TableCell className="text-right">$250.00</TableCell>
-                        </TableRow> */}
-                    </TableBody>
-                </Table>
-            </section>
+                        </TableHeader>
+                        <TableBody>
+                            {orders && orders.length === 0 ? (
+                                <TableRow>
+                                    <TableCell colSpan={5} className="h-24 text-center">
+                                        <div className="flex flex-col items-center justify-center text-gray-500">
+                                            <FileText className="h-8 w-8 mb-2" />
+                                            <p>No orders found.</p>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            ) : (
+                                <>
+                                    {orders &&
+                                        orders.map((row: IOrderItem) => (
+                                            <TableRow key={row._id} className="hover:bg-gray-50 transition-colors">
+                                                <TableCell className="font-medium">{row._id}</TableCell>
+                                                <TableCell>{row.eventTitle}</TableCell>
+                                                <TableCell>{row.buyer}</TableCell>
+                                                <TableCell>{formatDateTime(row.createdAt).dateTime}</TableCell>
+                                                <TableCell className="text-right">{formatPrice(row.totalAmount)}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                </>
+                            )}
+                        </TableBody>
+                    </Table>
+                </section>
+            </div>
         </div>
     );
 }
 
-
-
-
 export default OrdersPage;
+

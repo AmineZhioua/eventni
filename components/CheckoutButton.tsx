@@ -7,13 +7,19 @@ import Checkout from './Checkout';
 import Link from 'next/link';
 
 
-const CheckoutButton = ({ event }: { event: IEvent }) => {
+
+/* eslint-disable */
+const CheckoutButton = ({ event, currentUserId }: { event: IEvent, currentUserId: string }) => {
+
     const isEventFinished = new Date(event.endDateTime) < new Date();
     const { user } = useUser();
     const userId = user?.publicMetadata?.userId as string;
 
+    const isEventOwner = currentUserId === event.organizer._id;
+
     return (
         <div className='flex items-center gap-3'>
+
             {/* Event is no longer Available */}
             {
                 isEventFinished ? (
@@ -31,7 +37,18 @@ const CheckoutButton = ({ event }: { event: IEvent }) => {
                     </SignedOut>
 
                     <SignedIn>
-                        <Checkout event={event} userId={userId} />
+                        {
+                            isEventOwner ? (
+                                <Button asChild className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-sm transition duration-300 ease-in-out transform hover:scale-105">
+                                    <Link href={`/events/${event._id}/update`}>
+                                        Need to make changes?
+                                    </Link>
+                                </Button>
+                                ) : (
+                                    <Checkout event={event} userId={userId} />
+                            )
+                        }
+                        
                     </SignedIn>
                 </>
             )}

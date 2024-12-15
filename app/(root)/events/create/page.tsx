@@ -1,36 +1,27 @@
 import EventForm from "@/components/EventForm";
 import { auth } from "@clerk/nextjs/server";
 
-
-const EventCreation = async() => {
-    /* eslint-disable */
+const EventCreation = async () => {
     const { sessionClaims } = await auth();
     const userId = sessionClaims?.userId as string;
 
     return (
-        <section className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
-            <div
-                aria-hidden="true"
-                className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
-                    <div
-                        style={{
-                            clipPath:
-                                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                        }}
-                        className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
-                    />
-            </div>
-            <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Create Your Event</h2>
-                <p className="mt-2 text-lg/8 text-gray-600">Be creative and make it big!</p>
-            </div>
-            <div className="mx-auto mt-16 max-w-xl sm:mt-20">
-                <EventForm userId={ userId } type="Create" />
+        <section className="bg-gradient-to-br from-purple-50 via-white to-blue-50 min-h-screen py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-12">
+                    <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl mb-4">
+                        Create Your Event
+                    </h1>
+                    <p className="text-xl text-gray-600">
+                        Bring your vision to life and create an unforgettable experience
+                    </p>
+                </div>
+                <div className="bg-white rounded-lg shadow-xl p-6 sm:p-10">
+                    <EventForm userId={userId} type="Create" />
+                </div>
             </div>
         </section>
     );
 }
-
-
 
 export default EventCreation;

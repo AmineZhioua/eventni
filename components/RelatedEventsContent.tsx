@@ -1,6 +1,8 @@
 import { IEvent } from '@/lib/database/models/event.model';
 import React from 'react'
 import EventCard from './EventCard';
+import { Calendar, Frown } from 'lucide-react';
+import Link from 'next/link';
 
 interface RelatedEventsContentProps {
     data: IEvent[],
@@ -22,42 +24,50 @@ const RelatedEventsContent = ({
     limit,
     page,
     totalPages = 0,
-    urlParamName }: RelatedEventsContentProps) => {
+    urlParamName 
+}: RelatedEventsContentProps) => {
 
     return (
-        <div>
-            {
-                data.length > 0 ? (
-                    <ul className="cards relative grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                        {
-                            data.map(event => {
-                                const hasOrderLink = collectionType === 'Events_Organized';
-                                const hidePrice = collectionType === 'My_Tickets';
+        <div className="w-full">
+            {data.length > 0 ? (
+                <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {data.map(event => {
+                        const hasOrderLink = collectionType === 'Events_Organized';
+                        const hidePrice = collectionType === 'My_Tickets';
 
-                                return (
-                                    <li key={event._id}>
-                                        <EventCard
-                                            event={event}
-                                            hasOrderLink={hasOrderLink}
-                                            hidePrice={hidePrice}
-                                        />
-                                    </li>
-                                )
-                            })
+                        if(!event.organizer) {
+                            return null;
                         }
-                    </ul>
-                ) : (
-                    <div className="flex py-5 justify-center items-center flex-col">
-                        <h1 className="text-balance font-semibold tracking-tight text-gray-900 sm:text-3xl">{emptyTitle}</h1>
-                        <h3 className="text-balance font-semibold tracking-tight text-gray-900 sm:text-xl">{emptyStateText}</h3>
-                    </div>
-                )
-            }
+                        return (
+                            <li key={event._id} className="col-span-1">
+                                <EventCard
+                                    event={event}
+                                    hasOrderLink={hasOrderLink}
+                                    hidePrice={hidePrice}
+                                />
+                            </li>
+                        )
+                    })}
+                </ul>
+            ) : (
+                <div className="flex flex-col items-center justify-center py-10 px-4 text-center">
+                    <Frown className="w-16 h-16 text-gray-400 mb-4" />
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">{emptyTitle}</h2>
+                    <p className="text-gray-600 max-w-md">{emptyStateText}</p>
+                    {
+                        collectionType === 'All_Events' && (
+                        <div className="mt-6">
+                            <Link href="/" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                                <Calendar className="mr-2 h-4 w-4" />
+                                Explore Events
+                            </Link>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 }
 
-
-
-
 export default RelatedEventsContent;
+

@@ -4,6 +4,8 @@ import React from 'react';
 import { formatDateTime } from '@/lib/utils';
 import RelatedEventsContent from '@/components/RelatedEventsContent';
 import CheckoutButton from '@/components/CheckoutButton';
+import { Calendar, Globe, MapPin } from 'lucide-react';
+import { auth } from '@clerk/nextjs/server';
 
 const EventDetails = async({
     params,
@@ -15,6 +17,9 @@ const EventDetails = async({
 
     const { id } = await params;
     const searchParamsResolved = await searchParams;
+
+    const { sessionClaims } = await auth();
+    const userId = sessionClaims?.userId as string;
     
     const event = await getEventById(id);
 
@@ -26,129 +31,108 @@ const EventDetails = async({
 
     return (
         <>
-            <section className='bg-white details relative top-11'>
-                <div className='pt-6'>
+            <section className='bg-white relative pt-10'>
+                <div className='container mx-auto px-4 py-8 sm:py-12 lg:py-16'>
                     {/* Event Image */} 
-                    <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8">
-                        <div className="overflow-hidden rounded-lg">
+                    <div className="mx-auto max-w-4xl">
+                        <div className="overflow-hidden rounded-xl shadow-lg">
                             <Image
-                                alt="main image"
+                                alt={event.title}
                                 src={event.imageUrl}
                                 width={1000}
-                                height={1000}
-                                className="w-full object-cover object-center"
+                                height={500}
+                                className="w-full h-[300px] sm:h-[400px] object-cover object-center"
                             />
                         </div>
                     </div>
 
                     {/* Event info */}
-                    <div className='mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:max-w-7xl lg:grid lg:grid-cols-3 lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16'>
-                        <div className='lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8'>
-                            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl flex justify-center">
-                                {event.title}
-                            </h1>
-                            <div className="mt-5 flex items-center">
-                                <p className='bg-slate-200 px-2 py-2 rounded-md'>{event.category.name}</p>
-                            </div>
-                            <div className="mt-5 flex items-center">
-                                <h3 className="text-lg font-semibold text-gray-900">Hosted by :&nbsp;</h3>
-                                <p>{event.organizer.firstName} {event.organizer.lastName}</p>
-                            </div>
-                            <div className="mt-4">
-                                <h3 className="text-xl font-semibold text-gray-900">About the event :</h3>
-                                <p className='mt-2'>{event.description}</p>
-                            </div>
-                            <div className="mt-4 flex items-center">
-                                <Image 
-                                    src="/assets/icons/url.svg"
-                                    alt="calendar"
-                                    className='mr-1'
-                                    width={24}
-                                    height={24}
-                                />
-                                <a href={event.url} target='blank' className=''><u>{event.url}</u></a>
-                            </div>
-                        </div>
-
-                        {/* Event Details: Price, Reviews, and Join */}
-                        <div className='lg:row-span-3 lg:mt-0 lg:pl-5 flex flex-col gap-4'>
-                            <p className=" md:mt-5 sm:mt-5">
-                                <span className='text-xl font-bold tracking-tight text-gray-900'>Price :</span> 
-                                <span className='bg-slate-200 ml-2 rounded-md px-2 py-1'>
-                                    {event.isFree ? "Free" : `${event.price} TND`}
-                                </span>
-                            </p>
-                            {/* Event Start Date */}
-                            <div className="date mt-2">
-                                <span className='text-md font-bold tracking-tight text-gray-900'>Start Date : </span> 
-                                <div className='flex items-center mt-2'>
-                                    <Image 
-                                        src="/assets/icons/calendar.svg"
-                                        alt="calendar"
-                                        className='mr-2'
-                                        width={24}
-                                        height={24}
-                                    />
-                                    <p className='text-md'>
-                                        {formatDateTime(event.startDateTime).dateOnly} | {formatDateTime(event.startDateTime).timeOnly}
-                                    </p>
+                    <div className='mx-auto max-w-4xl mt-8 lg:mt-12'>
+                        <div className='grid lg:grid-cols-3 gap-8'>
+                            <div className='lg:col-span-2'>
+                                <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                                    {event.title}
+                                </h1>
+                                <div className="flex items-center mb-4">
+                                    <span className='bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium'>
+                                        {event.category.name}
+                                    </span>
                                 </div>
-                            </div>
-                            {/* Event End Date */}
-                            <div className="date mt-2">
-                                <span className='text-md font-bold tracking-tight text-gray-900'>End Date : </span> 
-                                <div className='flex items-center mt-2'>
-                                    <Image 
-                                        src="/assets/icons/calendar.svg"
-                                        alt="calendar"
-                                        className='mr-2'
-                                        width={24}
-                                        height={24}
-                                    />
-                                    <p className='text-md'>
-                                        {formatDateTime(event.endDateTime).dateOnly} | {formatDateTime(event.endDateTime).timeOnly}
-                                    </p>
+                                <div className="flex items-center mb-6">
+                                    <h3 className="text-lg font-semibold text-gray-700">Hosted by:</h3>
+                                    <p className="ml-2 text-gray-600">{event.organizer.firstName} {event.organizer.lastName}</p>
                                 </div>
-                            </div>
-                            <div className="date flex flex-col mt-2">
-                                <span className='text-md font-bold tracking-tight text-gray-900'>Location : </span> 
-                                <div className='flex items-center mt-2'>
-                                    <Image 
-                                        src="/assets/icons/location.svg"
-                                        alt="location"
-                                        className='mr-2'
-                                        width={24}
-                                        height={24}
-                                    />
-                                    <p className='text-md'>{event.location}</p>
+                                <div className="mb-6">
+                                    <h3 className="text-xl font-semibold text-gray-900 mb-2">About the event:</h3>
+                                    <p className='text-gray-600 leading-relaxed'>{event.description}</p>
+                                </div>
+                                <div className="flex items-center">
+                                    <Globe className="w-5 h-5 text-purple-600 mr-2" />
+                                    <a href={event.url} target='_blank' rel="noopener noreferrer" className='text-purple-600 hover:text-purple-800 transition-colors'>
+                                        {event.url}
+                                    </a>
                                 </div>
                             </div>
 
-                            {/* Checkout Button */}
-                            <CheckoutButton event={event} />
+                            {/* Event Details: Price, Date, Location, and Join */}
+                            <div className='lg:border-l lg:border-gray-200 lg:pl-8 space-y-6'>
+                                <div>
+                                    <h4 className="text-lg font-semibold text-gray-900 mb-2">Price</h4>
+                                    <span className='inline-block bg-green-100 text-green-800 text-lg font-semibold px-3 py-1 rounded-full'>
+                                        {event.isFree ? "Free" : `${event.price} TND`}
+                                    </span>
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-semibold text-gray-900 mb-2">Date & Time</h4>
+                                    <div className='space-y-2'>
+                                        <div className='flex items-center'>
+                                            <Calendar className="w-5 h-5 text-purple-600 mr-2" />
+                                            <p className='text-gray-600'>
+                                                Start: {formatDateTime(event.startDateTime).dateOnly} at {formatDateTime(event.startDateTime).timeOnly}
+                                            </p>
+                                        </div>
+                                        <div className='flex items-center'>
+                                            <Calendar className="w-5 h-5 text-purple-600 mr-2" />
+                                            <p className='text-gray-600'>
+                                                End: {formatDateTime(event.endDateTime).dateOnly} at {formatDateTime(event.endDateTime).timeOnly}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-semibold text-gray-900 mb-2">Location</h4>
+                                    <div className='flex items-center'>
+                                        <MapPin className="w-5 h-5 text-purple-600 mr-2" />
+                                        <p className='text-gray-600'>{event.location}</p>
+                                    </div>
+                                </div>
+                                <CheckoutButton event={event} currentUserId={userId} />
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-
             {/* Similar Events From The Same Category */}
-            <section className='wrapper  my-14 mx-5 flex flex-col gap-8 md:gap-12'>
-                <h1 className='text-balance font-semibold tracking-tight text-gray-900 sm:text-3xl'>
-                    <u>You May Also Like :</u>
-                </h1>
-                <RelatedEventsContent 
-                    data={relatedEvents?.data}
-                    emptyTitle="No Related Events Found"
-                    emptyStateText="Explore Different Events in The Home Page"
-                    collectionType="All_Events"
-                    limit={3}
-                    page={searchParamsResolved.page as string}
-                    totalPages={relatedEvents?.totalPages}
-                />
+            <section className='bg-gray-50 py-12 sm:py-16'>
+                <div className='container mx-auto px-4'>
+                    <h2 className='text-2xl sm:text-3xl font-bold text-gray-900 mb-8'>
+                        You May Also Like
+                    </h2>
+                    <RelatedEventsContent 
+                        data={relatedEvents?.data}
+                        emptyTitle="No Related Events Found"
+                        emptyStateText="Explore Different Events in The Home Page"
+                        collectionType="All_Events"
+                        limit={3}
+                        page={searchParamsResolved.page as string}
+                        totalPages={relatedEvents?.totalPages}
+                    />
+                </div>
             </section>
         </>
     );
 }
 
 export default EventDetails;
+
