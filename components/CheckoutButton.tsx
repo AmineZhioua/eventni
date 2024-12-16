@@ -29,7 +29,7 @@ const CheckoutButton = ({ event, currentUserId }: { event: IEvent, currentUserId
             ) : (
                 <>
                     <SignedOut>
-                        <Button className='flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-700 focus:ring-offset-2'>
+                        <Button className="bg-purple-600 hover:bg-purple-700 w-full text-white font-semibold py-2 px-6 rounded-sm transition duration-300 ease-in-out transform hover:scale-105">
                             <Link href='/sign-in'>
                                 <i className="fa-solid fa-plus"></i> Join Now
                             </Link>
