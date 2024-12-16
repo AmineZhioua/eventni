@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useEffect, useState } from 'react'
 import {
     Select,
@@ -13,6 +12,8 @@ import getAllCategories from '@/lib/actions/category.actions';
 import { ICategory } from '@/lib/database/models/category.model';
 import { formUrlQuery, removeKeysFromQuery } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
+
+
 
 const CategoryFilter = () => {
     const [categories, setCategories] = useState<ICategory[]>([]);
