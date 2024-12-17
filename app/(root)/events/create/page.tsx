@@ -13,7 +13,7 @@ const EventCreation = async () => {
                         Create Your Event
                     </h1>
                     <p className="text-xl text-gray-600">
-                        Bring your vision to life and create an unforgettable experience
+                        Bring your vision to life and create an unforgettable experience!
                     </p>
                 </div>
                 <div className="bg-white rounded-lg shadow-xl p-6 sm:p-10">
