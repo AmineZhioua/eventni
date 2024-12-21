@@ -2,6 +2,19 @@ import mongoose from "mongoose";
 
 const { Schema, models, model } = mongoose;
 
+
+export interface IUser extends Document {
+    _id: string,
+    clerkId: string,
+    email: string,
+    username: string,
+    firstName: string,
+    lastName: string,
+    photo: string,
+}
+
+
+
 // Create a User Schema
 const UserSchema = new Schema({
     clerkId: { type: String, required: true, unique: true },

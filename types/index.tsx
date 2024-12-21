@@ -149,3 +149,10 @@ export type SearchParamProps = {
   }
   searchParams: { [key: string]: string | string[] | undefined }
 }
+
+
+// CREATE CONTACT PARAMS
+export type CreateContactParams = {
+  subject: string,
+  message: string
+}

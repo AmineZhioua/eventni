@@ -49,7 +49,7 @@ async function EventCard({ event, hasOrderLink, hidePrice }: EventCardProps) {
                         <span className='p-semibold-14 w-min rounded-full bg-purple-600 text-white px-4 py-1'>
                             {event.isFree ? 'Free' : `${event.price}TND`}
                         </span>
-                        <p className='p-semibold-14 w-min rounded-full bg-gray-500/10 px-4 py-1 text-gray-500'>
+                        <p className='p-semibold-14 w-min line-clamp-1 rounded-full bg-gray-500/10 px-4 py-1 text-gray-500'>
                             {event.category.name}
                         </p>
                     </div>
