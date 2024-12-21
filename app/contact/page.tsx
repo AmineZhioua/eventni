@@ -1,6 +1,4 @@
 import ContactForm from '@/components/ContactForm';
-import { getUserById } from '@/lib/actions/user.actions';
-import { auth } from '@clerk/nextjs/server';
 import React from 'react'
 
 const ContactPage = async() => {
