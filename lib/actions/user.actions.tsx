@@ -14,12 +14,16 @@ export async function createUser(user: CreateUserParams) {
     await connectToDatabase();
 
     const newUser = await User.create(user);
+    console.log('New user created in database:', newUser);
+
     return JSON.parse(JSON.stringify(newUser));
-    
   } catch (error) {
+    console.error('Error creating user:', error);
     handleError(error);
+    throw error; // Rethrow error for better error propagation
   }
 }
+
 
 
 

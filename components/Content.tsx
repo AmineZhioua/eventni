@@ -28,6 +28,7 @@ async function Content({
     totalPages = 0,
     urlParamName 
 }: ContentProps) {
+
     return (
         <div className='content bg-white rounded-lg shadow-lg p-8' id='Content'>
             <h1 className='text-balance font-bold tracking-tight text-gray-900 text-3xl sm:text-4xl mb-8'>

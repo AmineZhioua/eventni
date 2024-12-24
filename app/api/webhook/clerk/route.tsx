@@ -67,18 +67,26 @@ export async function POST(req: Request) {
 
     try {
       const newUser = await createUser(user);
+      console.log('Created user:', newUser); // Log to confirm user creation
+    
       if (newUser) {
+        const userIdString = newUser._id.toString(); // Ensure _id is a string
+        console.log('Updating Clerk metadata with userId:', userIdString);
+    
         await clerkClient.users.updateUserMetadata(id, {
           publicMetadata: {
-              userId: newUser._id,
-          }
+            userId: userIdString,
+          },
         });
+    
+        console.log('Clerk metadata updated successfully.');
       }
+    
       return NextResponse.json({ message: "OK", user: newUser });
-  } catch (error) {
-      console.error("Error creating user:", error);
-      return new Response("Failed to create user", { status: 500 });
-  }
+    } catch (error) {
+      console.error("Error in Clerk webhook handling:", error);
+      return new Response("Failed to handle webhook", { status: 500 });
+    }
   }
 
 
