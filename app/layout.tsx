@@ -1,17 +1,11 @@
 'use client'
 import { ReactNode } from "react";
-// import { Poppins } from 'next/font/google';
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { usePathname } from "next/navigation";
 
-// const poppins = Poppins({
-//   weight: ["100", "200", "300", "400", "500", "600", "700"],
-//   subsets: ["latin"],
-//   variable: "--font-poppins",
-// });
 
 interface RootLayoutProps {
   children: ReactNode;

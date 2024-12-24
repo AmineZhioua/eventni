@@ -72,7 +72,7 @@ export async function POST(req: Request) {
       if (newUser) {
           client.users.updateUserMetadata(id, {
           publicMetadata: {
-            userId: id,
+            userId: newUser._id,
           },
         });
       }
