@@ -73,11 +73,6 @@ export async function POST(req: Request) {
                 userId: newUser._id,
               }
           })
-          // await clerkClient.users.updateUserMetadata(id, {
-          //   publicMetadata: {
-          //       userId: newUser._id,
-          //   }
-          // });
       }
       return NextResponse.json({ message: "OK", user: newUser });
   } catch (error) {
