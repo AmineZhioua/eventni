@@ -54,8 +54,9 @@ export async function POST(req: Request) {
 
   /* eslint-disable */
   // CREATING A USER
-  if(eventType === 'user.created') {
+  if (eventType === 'user.created') {
     const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
+  
     const user = {
       clerkId: id,
       email: email_addresses?.[0]?.email_address || "no-email@example.com",
@@ -63,31 +64,24 @@ export async function POST(req: Request) {
       firstName: first_name || "NoFirstName", 
       lastName: last_name || "NoLastName",
       photo: image_url || "default-photo-url",
-    }
-
+    };
+  
     try {
       const newUser = await createUser(user);
-      console.log('Created user:', newUser); // Log to confirm user creation
-    
       if (newUser) {
-        const userIdString = newUser._id.toString(); // Ensure _id is a string
-        console.log('Updating Clerk metadata with userId:', userIdString);
-    
         await clerkClient.users.updateUserMetadata(id, {
           publicMetadata: {
-            userId: userIdString,
+            userId: id, // clerkId
           },
         });
-    
-        console.log('Clerk metadata updated successfully.');
       }
-    
       return NextResponse.json({ message: "OK", user: newUser });
     } catch (error) {
-      console.error("Error in Clerk webhook handling:", error);
-      return new Response("Failed to handle webhook", { status: 500 });
+      console.error("Error creating user:", error);
+      return new Response("Failed to create user", { status: 500 });
     }
   }
+  
 
 
 
